@@ -1,34 +1,36 @@
 # Show likely private LAN addresses for a direct Syncthing connection.
 # This script only reads adapter configuration; it does not change VPN or firewall settings.
 
-$ErrorActionPreference = 'Stop'
 $excludedAdapter = 'vpn|radmin|vmware|virtual|hyper-v|wintun|tap|wireguard|loopback|planet'
 $candidates = [System.Collections.Generic.List[object]]::new()
 
-try {
-    $configurations = Get-NetIPConfiguration
-} catch {
-    Write-Error 'Could not read Windows network configuration. Run this script in Windows PowerShell.'
-    exit 1
-}
-
-foreach ($configuration in $configurations) {
-    $adapter = Get-NetAdapter -InterfaceIndex $configuration.InterfaceIndex -ErrorAction SilentlyContinue
-    $adapterLabel = @(
-        [string]$configuration.InterfaceAlias
-        [string]$adapter.InterfaceDescription
-    ) -join ' '
-
-    if ($adapterLabel -match $excludedAdapter) {
+foreach ($adapter in [System.Net.NetworkInformation.NetworkInterface]::GetAllNetworkInterfaces()) {
+    if ($adapter.OperationalStatus -ne [System.Net.NetworkInformation.OperationalStatus]::Up) {
         continue
     }
 
-    if (-not $configuration.IPv4DefaultGateway) {
+    if ($adapter.NetworkInterfaceType -notin @(
+        [System.Net.NetworkInformation.NetworkInterfaceType]::Ethernet,
+        [System.Net.NetworkInformation.NetworkInterfaceType]::Wireless80211
+    )) {
         continue
     }
 
-    foreach ($address in $configuration.IPv4Address) {
-        $parsedAddress = [System.Net.IPAddress]::Parse($address.IPAddress)
+    if ("$($adapter.Name) $($adapter.Description)" -match $excludedAdapter) {
+        continue
+    }
+
+    $properties = $adapter.GetIPProperties()
+    $hasGateway = $properties.GatewayAddresses | Where-Object {
+        $_.Address.AddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetwork -and
+        $_.Address.IPAddressToString -ne '0.0.0.0'
+    }
+    if (-not $hasGateway) {
+        continue
+    }
+
+    foreach ($unicastAddress in $properties.UnicastAddresses) {
+        $parsedAddress = $unicastAddress.Address
         if ($parsedAddress.AddressFamily -ne [System.Net.Sockets.AddressFamily]::InterNetwork) {
             continue
         }
@@ -40,7 +42,7 @@ foreach ($configuration in $configurations) {
 
         if ($isPrivate) {
             $candidates.Add([pscustomobject]@{
-                Adapter = $configuration.InterfaceAlias
+                Adapter = $adapter.Name
                 IPv4 = $parsedAddress.IPAddressToString
                 SyncthingAddress = "tcp://$($parsedAddress.IPAddressToString):22000"
             })
