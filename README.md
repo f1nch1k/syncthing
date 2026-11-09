@@ -31,3 +31,7 @@
 ## Git
 
 The project is kept on the separate [`obsidian-local-sync` branch](https://github.com/f1nch1k/syncthing/tree/obsidian-local-sync). The repository's `main` branch remains unchanged.
+
+## Сеть и подключение
+
+Перед продолжением настройки см. [диагностику локального подключения](docs/NETWORK-TROUBLESHOOTING.md): телефон пока не соединяется с ноутбуком, а Planet VPN может ограничивать доступ к локальной сети.
