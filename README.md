@@ -27,3 +27,7 @@
 
 См. [план и журнал](docs/WORKLOG.md).
 
+
+## Git
+
+The project is kept on the separate [`obsidian-local-sync` branch](https://github.com/f1nch1k/syncthing/tree/obsidian-local-sync). The repository's `main` branch remains unchanged.
