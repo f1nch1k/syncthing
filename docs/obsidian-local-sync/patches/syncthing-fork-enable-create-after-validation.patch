@@ -1,0 +1,10 @@
+diff --git a/app/src/main/java/com/nutomic/syncthingandroid/activities/FolderActivity.java b/app/src/main/java/com/nutomic/syncthingandroid/activities/FolderActivity.java
+--- a/app/src/main/java/com/nutomic/syncthingandroid/activities/FolderActivity.java
++++ b/app/src/main/java/com/nutomic/syncthingandroid/activities/FolderActivity.java
+@@ -588,7 +588,6 @@ public class FolderActivity extends SyncthingActivity {
+         int itemId = item.getItemId();
+         if (itemId == R.id.save) {
+-            item.setEnabled(false);
+             onSave();
+             return true;
+         } else if (itemId == R.id.remove) {
