@@ -76,7 +76,7 @@ function Read-SyncthingConfig {
     if ($address -match '^https?://') {
         $script:BaseUrl = $address.TrimEnd('/')
     } else {
-        $script:BaseUrl = "$scheme://$address"
+        $script:BaseUrl = "${scheme}://$address"
     }
 }
 
