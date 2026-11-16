@@ -662,8 +662,8 @@
             <button type="button" class="btn btn-sm btn-default" ng-click="setAllFoldersPause(false)" ng-if="isAtleastOneFolderPausedStateSetTo(true)">
               <span class="fas fa-play"></span>&nbsp;<span translate>Resume All</span>
             </button>
-            <button type="button" class="btn btn-sm btn-default" ng-click="rescanAllFolders()" ng-if="folderList().length > 0" ng-disabled="!isAtleastOneFolderPausedStateSetTo(false)">
-              <span class="fas fa-refresh"></span>&nbsp;<span translate>Rescan All</span>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="rescanAllFolders()" ng-if="folderList().length > 0" ng-disabled="!isAtleastOneFolderPausedStateSetTo(false)" title="{{'Sync Now Help' | translate}}">
+              <span class="fas fa-refresh"></span>&nbsp;<span translate>Sync Now</span>
             </button>
             <button type="button" class="btn btn-sm btn-default" ng-click="addFolder()">
               <span class="fas fa-plus"></span>&nbsp;<span translate>Add Folder</span>

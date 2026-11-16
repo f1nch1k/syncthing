@@ -336,6 +336,8 @@
     "Required identifier for the folder. Must be the same on all cluster devices.": "Обязательный идентификатор папки. Должен быть одним и тем же на всех устройствах кластера.",
     "Rescan": "Пересканировать",
     "Rescan All": "Пересканировать все",
+    "Sync Now": "Синхронизировать сейчас",
+    "Sync Now Help": "Проверить все папки сейчас. Syncthing автоматически передаст изменения.",
     "Rescans": "Ресканы",
     "Restart": "Перезапустить",
     "Restart Needed": "Требуется перезапуск",

@@ -338,6 +338,8 @@
     "Required identifier for the folder. Must be the same on all cluster devices.": "Required identifier for the folder. Must be the same on all cluster devices.",
     "Rescan": "Rescan",
     "Rescan All": "Rescan All",
+    "Sync Now": "Sync Now",
+    "Sync Now Help": "Scan all folders now. Syncthing transfers changes automatically.",
     "Rescans": "Rescans",
     "Restart": "Restart",
     "Restart Needed": "Restart Needed",
